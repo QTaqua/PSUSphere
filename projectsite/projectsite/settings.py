@@ -69,8 +69,9 @@ TEMPLATES = [
     },
 ]
 
+STATIC_URL = '/static/'
 WSGI_APPLICATION = 'projectsite.wsgi.application'
-TATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 ) 
