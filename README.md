@@ -106,6 +106,9 @@ python manage.py create_initial_data      # Optional: populate fake data
 
 4. Run & View Site
 python manage.py runserver
+ * open server thru terminal link
 
+
+### python anywhere links:
  * App URL: https://qtaqua.pythonanywhere.com/
  * Admin URL: https://qtaqua.pythonanywhere.com/admin
