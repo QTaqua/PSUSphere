@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-51f8&u$5_j9cdc8d3$nb8ky!#1_6qxv%z5d7a3_*4=)t&4dpzl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['qtaqua.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['qtaqua.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -71,10 +71,7 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'projectsite.wsgi.application'
-TATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-) 
+
 
 
 # Database
