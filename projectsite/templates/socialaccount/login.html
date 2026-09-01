@@ -1,0 +1,16 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Confirm social sign in | PSUSphere</title><link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"><link rel="stylesheet" href="{% static 'css/ready.css' %}"></head>
+<body class="auth-page">
+  <main class="auth-shell auth-shell-compact">
+    <section class="auth-card auth-card-centered">
+      <span class="brand-orbit large" aria-hidden="true"><span></span></span>
+      <p class="eyebrow">One more step</p><h1>Confirm sign in</h1>
+      <p>You are about to continue with your <strong>{{ provider.name }}</strong> account.</p>
+      <form method="post">{% csrf_token %}<button class="btn btn-primary btn-block" type="submit">Continue with {{ provider.name }}</button></form>
+      <a class="btn btn-ghost btn-block" href="{% url 'account_login' %}">Cancel</a>
+    </section>
+  </main>
+</body>
+</html>

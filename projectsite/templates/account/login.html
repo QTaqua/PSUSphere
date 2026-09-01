@@ -1,0 +1,61 @@
+{% load socialaccount static %}
+{% get_providers as socialaccount_providers %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | PSUSphere</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ready.css' %}">
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-story">
+      <a class="brand auth-brand" href="{% url 'account_login' %}"><span class="brand-orbit" aria-hidden="true"><span></span></span><span><strong>PSU</strong>Sphere<small>Student organizations</small></span></a>
+      <div class="auth-copy"><p class="eyebrow">Find your community</p><h1>Campus life, connected.</h1><p>Manage every college, program, organization, student, and membership from one shared sphere.</p></div>
+      <div class="auth-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+    </section>
+    <section class="auth-card">
+      <div class="auth-tabs" role="tablist" aria-label="Account action">
+        <button class="auth-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="login-panel" data-auth-tab="login-panel">Sign in</button>
+        <button class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" data-auth-tab="signup-panel">Register</button>
+      </div>
+
+      <div id="login-panel" class="auth-panel is-active" role="tabpanel">
+        <p class="auth-intro">Welcome back. Use your username or email.</p>
+        {% if socialaccount_providers %}
+          <div class="social-row">
+            {% for provider in socialaccount_providers %}
+              <a class="btn btn-social" href="{% provider_login_url provider process='login' %}">Continue with {{ provider.name }}</a>
+            {% endfor %}
+          </div>
+          <div class="divider"><span>or sign in directly</span></div>
+        {% endif %}
+        <form method="post" action="{% url 'account_login' %}" novalidate>
+          {% csrf_token %}
+          {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+          <div class="form-group"><label for="id_login">Email or username</label><input class="form-control" type="text" name="login" id="id_login" autocomplete="username" required></div>
+          <div class="form-group"><label for="id_password">Password</label><input class="form-control" type="password" name="password" id="id_password" autocomplete="current-password" required></div>
+          <div class="auth-options"><label><input type="checkbox" name="remember" id="id_remember"> Remember me</label><a href="{% url 'account_reset_password' %}">Forgot password?</a></div>
+          {% if redirect_field_value %}<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">{% endif %}
+          <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+      </div>
+
+      <div id="signup-panel" class="auth-panel" role="tabpanel" hidden>
+        <p class="auth-intro">Create an account for the PSUSphere registry.</p>
+        <form method="post" action="{% url 'account_signup' %}" novalidate>
+          {% csrf_token %}
+          <div class="form-group"><label for="register-username">Username</label><input class="form-control" type="text" name="username" id="register-username" autocomplete="username" required></div>
+          <div class="form-group"><label for="register-email">Email</label><input class="form-control" type="email" name="email" id="register-email" autocomplete="email" required></div>
+          <div class="form-group"><label for="register-password">Password</label><input class="form-control" type="password" name="password1" id="register-password" autocomplete="new-password" required></div>
+          <div class="form-group"><label for="register-password-repeat">Repeat password</label><input class="form-control" type="password" name="password2" id="register-password-repeat" autocomplete="new-password" required></div>
+          <button class="btn btn-primary btn-block" type="submit">Create account</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="{% static 'js/ready.js' %}"></script>
+</body>
+</html>

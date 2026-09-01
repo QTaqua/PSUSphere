@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Organizations | PSUSphere{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Campus network</p><h1>Organizations</h1></div><a class="btn btn-primary" href="{% url 'organization-add' %}">Add organization</a></header>
+<section class="panel">
+  <form class="toolbar" method="get" action="{% url 'organization-list' %}">
+    <label class="sr-only" for="org-search">Search organizations</label>
+    <input id="org-search" class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Search name, college, or description">
+    <button class="btn btn-secondary" type="submit">Search</button>
+  </form>
+  <div class="table-wrap"><table><thead><tr><th>Name</th><th>College</th><th>Description</th><th>Actions</th></tr></thead><tbody>
+    {% for object in object_list %}<tr><td><strong>{{ object.name }}</strong></td><td>{{ object.college|default:'All colleges' }}</td><td>{{ object.description }}</td><td class="table-actions"><a href="{% url 'organization-update' object.pk %}">Edit</a><a class="danger-link" href="{% url 'organization-delete' object.pk %}">Delete</a></td></tr>
+    {% empty %}<tr><td colspan="4" class="empty-state">No organizations found. Add one to begin.</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

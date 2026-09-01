@@ -1,0 +1,26 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign out | PSUSphere</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ready.css' %}">
+</head>
+<body class="auth-page">
+  <main class="auth-shell auth-shell-compact">
+    <section class="auth-card auth-card-centered">
+      <span class="brand-orbit large" aria-hidden="true"><span></span></span>
+      <p class="eyebrow">Account security</p>
+      <h1>Sign out?</h1>
+      <p>You will need to sign in again to manage the PSUSphere registry.</p>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-block" type="submit">Sign out</button>
+      </form>
+      <a class="btn btn-ghost btn-block" href="{% url 'home' %}">Stay signed in</a>
+    </section>
+  </main>
+</body>
+</html>

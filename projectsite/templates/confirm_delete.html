@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Delete record | PSUSphere{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Confirm action</p><h1>Delete record</h1></div></header>
+<section class="panel form-panel">
+  <p>Delete <strong>{{ object }}</strong>? Related records may also be removed.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn-danger" type="submit">Delete record</button>
+      <a class="btn btn-ghost" href="{% url 'home' %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

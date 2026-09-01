@@ -1,18 +1,28 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<div class="content">
-  <div class="container-fluid">
-    <h4 class="page-title">Home</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Page Title</div>
-            <div class="card-category">Page Subtitle</div>
-          </div>
-          <div class="card-body">Hello, World</div>
-        </div>
-      </div>
-    </div>
+{% extends 'base.html' %}
+{% block title %}Dashboard | PSUSphere{% endblock %}
+{% block content %}
+<section class="dashboard-hero">
+  <div>
+    <p class="eyebrow">PSUSphere dashboard</p>
+    <h1>Every campus community, in one orbit.</h1>
+    <p>Track students, programs, colleges, and the organizations that connect them.</p>
   </div>
-</div>
-{% endblock %} 
+  <div class="hero-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+</section>
+
+<section class="metric-grid" aria-label="Registry overview">
+  <article class="metric-card"><span>Students</span><strong>{{ total_students }}</strong><small>Registered profiles</small></article>
+  <article class="metric-card"><span>Joined this year</span><strong>{{ students_joined_this_year }}</strong><small>Distinct students</small></article>
+  <article class="metric-card"><span>Organizations</span><strong>{{ total_organizations }}</strong><small>Campus communities</small></article>
+  <article class="metric-card"><span>Programs</span><strong>{{ total_programs }}</strong><small>Academic pathways</small></article>
+</section>
+
+<section class="panel quick-actions">
+  <div><p class="eyebrow">Quick actions</p><h2>Keep the registry moving</h2></div>
+  <div class="action-row">
+    <a class="btn btn-primary" href="{% url 'organization-add' %}">Add organization</a>
+    <a class="btn btn-secondary" href="{% url 'student-add' %}">Add student</a>
+    <a class="btn btn-secondary" href="{% url 'orgmember-add' %}">Record membership</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Programs | PSUSphere{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Academic pathways</p><h1>Programs</h1></div><a class="btn btn-primary" href="{% url 'program-add' %}">Add program</a></header>
+<section class="panel">
+  <form class="toolbar toolbar-wide" method="get" action="{% url 'program-list' %}">
+    <div><label class="sr-only" for="program-search">Search programs</label><input id="program-search" class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Search program or college"></div>
+    <div><label for="program-sort">Sort by</label><select id="program-sort" class="form-control" name="sort_by"><option value="prog_name" {% if request.GET.sort_by == 'prog_name' %}selected{% endif %}>Program name</option><option value="college__college_name" {% if request.GET.sort_by == 'college__college_name' %}selected{% endif %}>College</option></select></div>
+    <button class="btn btn-secondary" type="submit">Apply</button>
+  </form>
+  <div class="table-wrap"><table><thead><tr><th>Program</th><th>College</th><th>Actions</th></tr></thead><tbody>
+    {% for object in object_list %}<tr><td><strong>{{ object.prog_name }}</strong></td><td>{{ object.college }}</td><td class="table-actions"><a href="{% url 'program-update' object.pk %}">Edit</a><a class="danger-link" href="{% url 'program-delete' object.pk %}">Delete</a></td></tr>
+    {% empty %}<tr><td colspan="3" class="empty-state">No programs found.</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load i18n static widget_tweaks %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finish sign up | PSUSphere</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ready.css' %}">
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-story">
+      <a class="brand auth-brand" href="{% url 'account_login' %}"><span class="brand-orbit" aria-hidden="true"><span></span></span><span><strong>PSU</strong>Sphere<small>Student organizations</small></span></a>
+      <div class="auth-copy">
+        <p class="eyebrow">Your campus profile</p>
+        <h1>One name.<br>Every community.</h1>
+        <p>Google has verified your email. Choose the name fellow students will recognize across the PSUSphere registry.</p>
+      </div>
+      <div class="auth-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+    </section>
+
+    <section class="auth-card">
+      <span class="brand-orbit large" aria-hidden="true"><span></span></span>
+      <p class="eyebrow">Google connected</p>
+      <h1>Finish your profile</h1>
+      <p class="auth-intro">Your Google email is ready. Pick a unique PSUSphere username to complete sign-up.</p>
+
+      {% url 'socialaccount_signup' as action_url %}
+      <form method="post" action="{{ action_url }}" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+        {% endif %}
+        {% for field in form %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+            {% if field.help_text %}<small class="help-text">{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+          </div>
+        {% endfor %}
+        {{ redirect_field }}
+        <button class="btn btn-primary btn-block" type="submit">Create my PSUSphere account</button>
+      </form>
+      <p class="auth-footer">Already use a different account? <a href="{% url 'account_login' %}">Return to sign in</a>.</p>
+    </section>
+  </main>
+</body>
+</html>
