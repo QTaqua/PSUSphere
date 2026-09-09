@@ -187,6 +187,17 @@ class ListViewTests(StudentOrgTestData):
 
 
 class CrudViewTests(StudentOrgTestData):
+    def test_membership_delete_page_uses_a_readable_name(self):
+        response = self.client.get(
+            reverse("orgmember-delete", args=[self.membership.pk])
+        )
+
+        self.assertContains(
+            response,
+            "Dela Cruz, Alex — Association of Computing Students",
+        )
+        self.assertNotContains(response, "OrgMember object")
+
     def test_create_views_for_all_models(self):
         cases = (
             ("college-add", {"college_name": "College of Science"}, College, 1),
