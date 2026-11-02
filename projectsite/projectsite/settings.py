@@ -35,14 +35,15 @@ if not SECRET_KEY:
             'DJANGO_SECRET_KEY must be set when DJANGO_DEBUG is False.'
         )
 
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.environ.get(
-        'DJANGO_ALLOWED_HOSTS',
-        '127.0.0.1,localhost,qtaqua.pythonanywhere.com',
-    ).split(',')
-    if host.strip()
-]
+#ALLOWED_HOSTS = [
+#    host.strip()
+#    for host in os.environ.get(
+#        'DJANGO_ALLOWED_HOSTS',
+#        '127.0.0.1,localhost,qtaqua.pythonanywhere.com',
+#    ).split(',')
+#    if host.strip()
+#]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '*']
 
 
 # Application definition
